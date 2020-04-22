@@ -1,4 +1,4 @@
-[![](https://img.shields.io/pypi/v/foliantcontrib.dbmldoc.svg)](https://pypi.org/project/foliantcontrib.dbmldoc/)  [![](https://img.shields.io/github/v/tag/foliant-docs/foliantcontrib.dbmldoc.svg?label=GitHub)](https://github.com/foliant-docs/foliantcontrib.dbmldoc)
+[![](https://img.shields.io/pypi/v/foliantcontrib.dbmldoc.png)](https://pypi.org/project/foliantcontrib.dbmldoc/)  [![](https://img.shields.io/github/v/tag/foliant-docs/foliantcontrib.dbmldoc.png?label=GitHub)](https://github.com/foliant-docs/foliantcontrib.dbmldoc)
 
 # DBML Docs Generator for Foliant
 
