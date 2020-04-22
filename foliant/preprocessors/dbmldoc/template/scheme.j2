@@ -1,0 +1,24 @@
+{# Template should be initialized with data environment variable:
+
+  data = PyDBMLParseResults object
+#}
+
+# Database Scheme
+
+<plantuml>
+@startuml
+{% for table in data.tables %}
+    object {{ table.name }} {
+{% for column in table -%}
+{{ column.name|indent(8) }} [{{ column.type }}]
+{% endfor %}{# {% for column in table %} #}
+    }
+{% endfor %}{# {% for table in tables %} #}
+
+{% for table in data.tables -%}
+{% for ref in table.refs -%}
+{{ table.name|indent }} --> {{ ref.ref_table }} : {{ ref.col }}
+{% endfor -%}{# {% for ref in table.refs -%} #}
+{%- endfor -%}{# {% for table in tables -%} #}
+    @enduml
+</plantuml>

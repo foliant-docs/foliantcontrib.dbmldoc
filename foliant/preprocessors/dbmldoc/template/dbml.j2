@@ -1,0 +1,40 @@
+{# Template should be initialized with data environment variable:
+
+  data = PyDBMLParseResults object
+#}
+
+# Tables
+
+{% for table in data.tables %}
+## {{ table.name }}
+
+{{ table.note or table.comment or '' }}
+
+column | nullable | type | descr | fkey
+------ | -------- | ---- | ----- | ----
+{% for col in table -%}
+{{ col.name }} | {% if col.not_null %} NO {% else %} YES {% endif %} |
+{%- if col.type.__class__.__name__ == 'EnumType' %} [{{ col.type.name }}](#{{ col.type.name.lower() }})
+{%- else %} {{ col.type.name }}
+{%- endif %} | {{ col.note or col.comment or '' }} | 
+  {%- for ref in table.refs -%}
+    {%- if ref.col == col.name %} [{{ ref.ref_table}}](#{{ref.ref_table.lower()}}).{{ref.ref_col}}{% endif -%}
+  {%- endfor %} {# {%- for ref in table.refs -%} #}
+{% endfor %} {# {% for col in table -%} #}
+{% endfor %} {# {% for table in data.tables %} #}
+
+{% if data.enums %}
+# Types
+
+{% for enum in data.enums %}
+
+## {{ enum.name }}
+
+option | descr
+------ | -----
+{% for item in enum -%}
+{{ item }} | {{ item.note or item.comment or '' }}
+{% endfor %} {# {% for item in enum -%} #}
+
+{% endfor %} {# {% for enum in data.enums %} #}
+{% endif %} {# {% if data.enums %} #}
