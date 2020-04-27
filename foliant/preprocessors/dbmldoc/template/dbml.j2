@@ -10,15 +10,19 @@
 
 {{ table.note or table.comment or '' }}
 
-column | nullable | type | descr | fkey
+column | properties | type | descr | fkey
 ------ | -------- | ---- | ----- | ----
 {% for col in table -%}
-{{ col.name }} | {% if col.not_null %} NO {% else %} YES {% endif %} |
+{% if col.pk %}**{{ col.name }}**{% else %}{{ col.name }}{% endif %} |
+    {%- if col.not_null %} `NOT NULL` {% endif %}
+    {%- if col.unique %} `UNIQUE` {% endif %}
+    {%- if col.autoinc %} `AUTOINCREMENT` {% endif %}
+    {%- if col.pk %} `PRIMARY KEY` {% endif %} |
 {%- if col.type.__class__.__name__ == 'EnumType' %} [{{ col.type.name }}](#{{ col.type.name.lower() }})
-{%- else %} {{ col.type.name }}
+{%- else %} {{ col.type }}
 {%- endif %} | {{ col.note or col.comment or '' }} | 
   {%- for ref in table.refs -%}
-    {%- if ref.col == col.name %} [{{ ref.ref_table}}](#{{ref.ref_table.lower()}}).{{ref.ref_col}}{% endif -%}
+    {%- if ref.col == col %} [{{ ref.ref_table.name}}](#{{ref.ref_table.name.lower()}}).{{ref.ref_col.name}}{% endif -%}
   {%- endfor %} {# {%- for ref in table.refs -%} #}
 {% endfor %} {# {% for col in table -%} #}
 {% endfor %} {# {% for table in data.tables %} #}

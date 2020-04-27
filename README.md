@@ -87,6 +87,8 @@ And here goes a visual diagram of our database:
 </dbmldoc>
 ```
 
+> Note that template path in tag is stated **relative to the markdown file**.
+
 Tag parameters have the highest priority.
 
 This way you can put your database description in one place and its diagram in the other (like in the example above). Or you can even have documentation from several different DBML spec files in one Foliant project.

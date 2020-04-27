@@ -17,7 +17,7 @@
 
 {% for table in data.tables -%}
 {% for ref in table.refs -%}
-{{ table.name|indent }} --> {{ ref.ref_table }} : {{ ref.col }}
+{{ table.name|indent }} --> {{ ref.ref_table.name }} : {{ ref.col.name }}
 {% endfor -%}{# {% for ref in table.refs -%} #}
 {%- endfor -%}{# {% for table in tables -%} #}
     @enduml
