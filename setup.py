@@ -26,7 +26,7 @@ setup(
     install_requires=[
         'foliant>=1.0.5',
         'jinja2',
-        'pydbml>=0.3.1',
+        'pydbml>=0.3.2',
         'foliantcontrib.utils.combined_options>=1.0.7',
         'foliantcontrib.utils.preprocessor_ext',
     ],
