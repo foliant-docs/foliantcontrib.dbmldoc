@@ -27,7 +27,7 @@ preprocessors:
         spec_url: http://localhost/scheme.dbml
         spec_path: scheme.dbml
         doc: true
-        chart: true
+        scheme: true
         template: dbml.j2
         scheme_template: scheme.j2
 
