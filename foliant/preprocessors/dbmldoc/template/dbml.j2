@@ -27,6 +27,10 @@ column | properties | type | descr | fkey
 {% endfor %} {# {% for col in table -%} #}
 {% endfor %} {# {% for table in data.tables %} #}
 
+```sql
+{{ table.sql }}
+```
+
 {% if data.enums %}
 # Types
 

@@ -1,3 +1,8 @@
+# 0.2.3
+
+- Pydbml parser version updated to 0.3.2
+- Updated templates
+
 # 0.2.2
 
 - Pydbml parser version updated to 0.3.2
