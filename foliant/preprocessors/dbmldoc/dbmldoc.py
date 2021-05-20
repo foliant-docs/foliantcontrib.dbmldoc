@@ -4,7 +4,7 @@ Generates documentation from dbml.
 '''
 
 import os
-from pydbml import PyDBML, PyDBMLParseResults
+from pydbml import PyDBML
 from pathlib import Path, PosixPath
 from urllib.request import urlretrieve
 from urllib.error import HTTPError, URLError

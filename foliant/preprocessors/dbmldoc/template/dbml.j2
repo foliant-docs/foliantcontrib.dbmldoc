@@ -28,8 +28,12 @@ column | properties | type | descr | fkey
 {%- else %} {{ col.type }}
 {%- endif %} | {{ col.note or col.comment or '' }} | 
   {%- for ref in table.refs -%}
-    {%- if ref.col == col %} [{{ ref.ref_table.name}}](#{{ref.ref_table.name.lower()}}).{{ref.ref_col.name}}{% endif -%}
-  {%- endfor %} {# {%- for ref in table.refs -%} #}
+    {%- for ref_col in ref.col -%}
+        {%- if ref_col == col %} [{{ ref.ref_table.name}}](#{{ref.ref_table.name.lower()}}).(
+            {%- for rr_col in ref.ref_col %}{% if loop.index > 1 %}, {% endif%}{{ rr_col.name }}{% endfor -%}
+        ){%- endif -%}
+      {%- endfor -%} {# {% for ref_col in ref.col -%} #}
+    {%- endfor -%} {# {%- for ref in table.refs -%} #}
 {% endfor %} {# {% for col in table -%} #}
 {% endfor %} {# {% for table in data.tables %} #}
 

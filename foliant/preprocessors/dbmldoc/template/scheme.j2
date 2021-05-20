@@ -17,7 +17,9 @@
 
 {% for table in data.tables -%}
 {% for ref in table.refs -%}
-{{ table.name|indent }} --> {{ ref.ref_table.name }} : {{ ref.col.name }}
+{{ table.name|indent }} --> {{ ref.ref_table.name }} : {% for c in ref.col %}
+    {%- if loop.index > 1 %}, {% endif%}{{c.name}}
+{%- endfor %}{# {% for c in ref.col %} #}
 {% endfor -%}{# {% for ref in table.refs -%} #}
 {%- endfor -%}{# {% for table in tables -%} #}
     @enduml
