@@ -16,7 +16,7 @@ setup(
     description=SHORT_DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
-    version='0.3.0',
+    version='0.3.1',
     author='Daniil Minukhin',
     author_email='ddddsa@gmail.com',
     packages=['foliant.preprocessors.dbmldoc'],
@@ -26,9 +26,8 @@ setup(
     install_requires=[
         'foliant>=1.0.5',
         'jinja2',
-        'pydbml>=0.4.0',
-        'foliantcontrib.utils.combined_options>=1.0.7',
-        'foliantcontrib.utils.preprocessor_ext',
+        'pydbml>=0.4.1',
+        'foliantcontrib.utils>=1.0.2',
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",

@@ -4,21 +4,25 @@ Generates documentation from dbml.
 '''
 
 import os
-from pydbml import PyDBML
-from pathlib import Path, PosixPath
-from urllib.request import urlretrieve
-from urllib.error import HTTPError, URLError
-from distutils.dir_util import remove_tree
-from shutil import copyfile
-from jinja2 import Environment, FileSystemLoader
-from pkg_resources import resource_filename
 
-from foliant.preprocessors.utils.preprocessor_ext import (BasePreprocessorExt,
-                                                          allow_fail)
-from foliant.preprocessors.utils.combined_options import (Options,
-                                                          CombinedOptions,
-                                                          validate_exists,
-                                                          rel_path_convertor)
+from distutils.dir_util import remove_tree
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
+from pathlib import Path
+from pathlib import PosixPath
+from pkg_resources import resource_filename
+from pydbml import PyDBML
+from shutil import copyfile
+from urllib.error import HTTPError
+from urllib.error import URLError
+from urllib.request import urlretrieve
+
+from foliant.contrib.combined_options import CombinedOptions
+from foliant.contrib.combined_options import Options
+from foliant.contrib.combined_options import rel_path_convertor
+from foliant.contrib.combined_options import validate_exists
+from foliant.preprocessors.utils.preprocessor_ext import BasePreprocessorExt
+from foliant.preprocessors.utils.preprocessor_ext import allow_fail
 
 
 class Preprocessor(BasePreprocessorExt):
@@ -95,8 +99,7 @@ class Preprocessor(BasePreprocessorExt):
                 # copy default template to project dir if it's doesn't exist there
                 copyfile(
                     resource_filename(
-                        __name__, 'template/' +
-                        self.defaults['template']
+                        __name__, 'template/' + self.defaults['template']
                     ),
                     options['template']
                 )
@@ -114,8 +117,7 @@ class Preprocessor(BasePreprocessorExt):
                 # copy default template to project dir if it's doesn't exist there
                 copyfile(
                     resource_filename(
-                        __name__, 'template/' +
-                        self.defaults['scheme_template']
+                        __name__, 'template/' + self.defaults['scheme_template']
                     ),
                     options['scheme_template']
                 )

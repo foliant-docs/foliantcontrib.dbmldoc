@@ -1,3 +1,8 @@
+# 0.3.1
+
+- New utils module.
+- Update PyDBML parser to 0.4.1.
+
 # 0.3.0
 
 - Update PyDBML parser to 0.4.0. This breaks backward compatibility with previous versions (reference cols are now lists).
