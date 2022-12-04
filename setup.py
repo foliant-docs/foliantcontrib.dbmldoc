@@ -1,7 +1,7 @@
 from setuptools import setup
 
 
-SHORT_DESCRIPTION = 'Documentation generator for DBML sepcification format'
+SHORT_DESCRIPTION = 'Documentation generator for DBML specification format'
 
 try:
     with open('README.md', encoding='utf8') as readme:
@@ -26,7 +26,7 @@ setup(
     install_requires=[
         'foliant>=1.0.5',
         'jinja2',
-        'pydbml>=0.4.1',
+        'pydbml>=1.0.5',
         'foliantcontrib.utils>=1.0.2',
     ],
     classifiers=[

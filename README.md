@@ -50,6 +50,8 @@ preprocessors:
 `template`
 :   Path to jinja-template for rendering the generated documentation. Path is relative to the project directory. If no template is specified preprocessor will use default template (and put it into project dir if it was missing). Default: `dbml.j2`
 
+> Note that the default template may be outdated. Please check if everything works, and if needed — update the template.
+
 `scheme_template`
 :   Path to jinja-template for generating planuml code for the database scheme. Path is relative to the project directory. If no template is specified preprocessor will use default template (and put it into project dir if it was missing). Default: `scheme.j2`
 

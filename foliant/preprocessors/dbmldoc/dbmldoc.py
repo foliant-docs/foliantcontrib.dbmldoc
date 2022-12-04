@@ -9,7 +9,6 @@ from distutils.dir_util import remove_tree
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
 from pathlib import Path
-from pathlib import PosixPath
 from pkg_resources import resource_filename
 from pydbml import PyDBML
 from shutil import copyfile
@@ -59,7 +58,7 @@ class Preprocessor(BasePreprocessorExt):
 
     def _gather_specs(self,
                       urls: list,
-                      path_: str or PosixPath or None) -> PosixPath:
+                      path_: str or Path or None) -> Path:
         """
         Download first dbml spec from the url list; copy it into the
         temp dir and return path to it. If all urls fail — check path_ and
@@ -88,7 +87,7 @@ class Preprocessor(BasePreprocessorExt):
                 return dest
 
     def _process_jinja(self,
-                       spec: PosixPath,
+                       spec: Path,
                        options: CombinedOptions) -> str:
         """Process dbml spec with jinja and return the resulting string"""
         data = PyDBML(spec)
@@ -96,7 +95,7 @@ class Preprocessor(BasePreprocessorExt):
 
         if options['doc']:
             if options.is_default('template') and not Path(options['template']).exists():
-                # copy default template to project dir if it's doesn't exist there
+                # copy default template to project dir if it doesn't exist there
                 copyfile(
                     resource_filename(
                         __name__, 'template/' + self.defaults['template']

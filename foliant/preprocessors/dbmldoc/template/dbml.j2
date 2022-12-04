@@ -1,13 +1,18 @@
 {# Template should be initialized with data environment variable:
 
-  data = PyDBMLParseResults object
+  data = Database object
 
   For available attributes refer to https://github.com/Vanderhoof/PyDBML
 #}
+{%- macro render_table_ref(ref, col) -%}
+{%- for ref_col in ref.col1 -%}
+    {%- if ref_col == col %} [{{ ref.table2.name}}](#{{ref.table2.name.lower()}}).(
+        {%- for rr_col in ref.col2 %}{% if loop.index > 1 %}, {% endif%}{{ rr_col.name }}{% endfor -%}
+    ){%- endif -%}
+  {%- endfor -%} {# {% for ref_col in ref.col -%} #}
+{%- endmacro -%}
 
-# Tables
-
-{% for table in data.tables %}
+{%- macro render_table(table, db) -%}
 ## {{ table.name }}
 
 ```sql
@@ -26,22 +31,14 @@ column | properties | type | descr | fkey
     {%- if col.pk %} `PRIMARY KEY` {% endif %} |
 {%- if col.type.__class__.__name__ == 'EnumType' %} [{{ col.type.name }}](#{{ col.type.name.lower() }})
 {%- else %} {{ col.type }}
-{%- endif %} | {{ col.note or col.comment or '' }} | 
-  {%- for ref in table.refs -%}
-    {%- for ref_col in ref.col -%}
-        {%- if ref_col == col %} [{{ ref.ref_table.name}}](#{{ref.ref_table.name.lower()}}).(
-            {%- for rr_col in ref.ref_col %}{% if loop.index > 1 %}, {% endif%}{{ rr_col.name }}{% endfor -%}
-        ){%- endif -%}
-      {%- endfor -%} {# {% for ref_col in ref.col -%} #}
-    {%- endfor -%} {# {%- for ref in table.refs -%} #}
+{%- endif %} | {{ col.note or col.comment or '' }} |
+  {%- for ref in table.get_refs() -%}
+    {{ render_table_ref(ref, col) }}
+  {%- endfor -%} {# {%- for ref in db.refs -%} #}
 {% endfor %} {# {% for col in table -%} #}
-{% endfor %} {# {% for table in data.tables %} #}
+{%- endmacro -%}
 
-
-{% if data.enums %}
-# Types
-
-{% for enum in data.enums %}
+{% macro render_enum(enum) %}
 
 ## {{ enum.name }}
 
@@ -55,5 +52,19 @@ option | descr
 {{ item }} | {{ item.note or item.comment or '' }}
 {% endfor %} {# {% for item in enum -%} #}
 
+{% endmacro %}
+
+# Tables
+
+{% for table in data.tables %}
+{{ render_table(table, data) }}
+{% endfor %} {# {% for table in data.tables %} #}
+
+
+{% if data.enums %}
+# Types
+
+{% for enum in data.enums %}
+{{ render_enum(enum) }}
 {% endfor %} {# {% for enum in data.enums %} #}
 {% endif %} {# {% if data.enums %} #}
