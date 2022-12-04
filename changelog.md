@@ -1,3 +1,8 @@
+# 0.3.2
+
+- Update PyDBML version
+- Update default template
+
 # 0.3.1
 
 - New utils module.
