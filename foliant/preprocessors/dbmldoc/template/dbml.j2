@@ -10,11 +10,21 @@
         {%- for rr_col in ref.col2 %}{% if loop.index > 1 %}, {% endif%}{{ rr_col.name }}{% endfor -%}
     ){%- endif -%}
   {%- endfor -%} {# {% for ref_col in ref.col -%} #}
+{%- for ref_col in ref.col2 -%}
+    {%- if ref_col == col %} [{{ ref.table1.name}}](#{{ref.table1.name.lower()}}).(
+        {%- for rr_col in ref.col1 %}{% if loop.index > 1 %}, {% endif%}{{ rr_col.name }}{% endfor -%}
+    ){%- endif -%}
+  {%- endfor -%} {# {% for ref_col in ref.col -%} #}
 {%- endmacro -%}
 
 {%- macro render_table(table, db) -%}
 ## {{ table.name }}
 
+{% set refs = {} %}
+{% for r in table.get_references_for_sql() %}
+    {%  set _ = refs.setdefault(r.col2[0].name if r.type == '<' else r.col1[0].name, []).append(r) %}
+{%  endfor %}
+    {{ refs }}
 ```sql
 {{ table.sql }}
 ```
@@ -32,7 +42,7 @@ column | properties | type | descr | fkey
 {%- if col.type.__class__.__name__ == 'EnumType' %} [{{ col.type.name }}](#{{ col.type.name.lower() }})
 {%- else %} {{ col.type }}
 {%- endif %} | {{ col.note or col.comment or '' }} |
-  {%- for ref in table.get_refs() -%}
+  {%- for ref in refs.get(col.name, []) -%}
     {{ render_table_ref(ref, col) }}
   {%- endfor -%} {# {%- for ref in db.refs -%} #}
 {% endfor %} {# {% for col in table -%} #}
