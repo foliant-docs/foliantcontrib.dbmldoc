@@ -1,3 +1,7 @@
+# 0.3.4
+
+- Fix default templates
+
 # 0.3.3
 
 - Update PyDBML version

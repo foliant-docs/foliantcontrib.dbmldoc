@@ -1,6 +1,8 @@
 {# Template should be initialized with data environment variable:
 
-  data = PyDBMLParseResults object
+  data = Database object (of PyDBML)
+
+  For available attributes refer to https://github.com/Vanderhoof/PyDBML
 #}
 
 # Database Scheme
@@ -17,7 +19,7 @@
 
 {% for table in data.tables -%}
 {% for ref in table.get_refs() -%}
-{{ table.name|indent }} --> {{ ref.table2.name }} : {% for c in ref.col %}
+{{ table.name|indent }} --> {{ ref.table2.name }} : {% for c in ref.col2 %}
     {%- if loop.index > 1 %}, {% endif%}{{c.name}}
 {%- endfor %}{# {% for c in ref.col %} #}
 {% endfor -%}{# {% for ref in table.refs -%} #}

@@ -1,6 +1,6 @@
 {# Template should be initialized with data environment variable:
 
-  data = Database object
+  data = Database object (of PyDBML)
 
   For available attributes refer to https://github.com/Vanderhoof/PyDBML
 #}
@@ -24,7 +24,7 @@
 {% for r in table.get_references_for_sql() %}
     {%  set _ = refs.setdefault(r.col2[0].name if r.type == '<' else r.col1[0].name, []).append(r) %}
 {%  endfor %}
-    {{ refs }}
+
 ```sql
 {{ table.sql }}
 ```
